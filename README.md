@@ -1,6 +1,8 @@
 # AutoTiering
 This repo contains the kernel code in the following paper:   
-* [Exploring the Design Space of Page Management for Multi-Tiered Memory Systems (ATC'21)](https://www.usenix.org/conference/atc21/presentation/kim-jonghyeon)
+* [Exploring the Design Space of Page Management for Multi-Tiered Memory Systems (ATC'21)](https://www.usenix.org/conference/atc21/presentation/kim-jonghyeon) 
+
+Also, There is user space experiment scripts in [autotiering-userspace](https://github.com/csl-ajou/autotiering-userspace)
 
 ## Preliminary
 * At least two NUMA node system are needed to define upper-tier and lower-tier node.
@@ -65,8 +67,23 @@ make modules_install install
   echo 1 > /sys/kernel/mm/page_balancing/background_demotion
   ```
 
+* It is also need to define the promotion/migration/demotion path of the NUMA node.
+  ``` bash
+  # If the path is not available (ex: upper-tier node can't have the promotion path),
+  # that path should be defiend to -1.
+  
+  # The migration path between same-tier memory nodes
+  /sys/devices/system/node/nodeN/migration_path
+  
+  # The promotion path to upper-tier memory node
+  /sys/devices/system/node/nodeN/promotion_path
+  
+  # The demotion path to lower-tier memory node
+  /sys/devices/system/node/nodeN/demotion_path
+  ```
+
 * `/proc/lapinfo`
-  * Show current LAP pages tracked by the system
+  * Show current LAP pages tracked by the system and counts of demotion by LAP level
 
 * In `/sys/kernel/mm/page_balancing` directory,
   * `nr_reserved_pages`
