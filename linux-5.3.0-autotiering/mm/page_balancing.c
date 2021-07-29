@@ -623,8 +623,13 @@ void add_page_for_exchange(struct page *page, int node)
 	set_page_to_page_info(page, pi);
 
 	if (__PageTracked(page_ext)) {
+		unsigned int lv = __get_page_access_lv(pi);
 		__ClearPageTracked(page_ext);
+
+		if (--(pgdat->lap_area[lv].nr_free) < 0)
+			pgdat->lap_area[lv].nr_free = 0;
 		__mod_lruvec_page_state(page, NR_TRACKED, -hpage_nr_pages(page));
+
 		__SetPageDeferred(page_ext);
 		list_move(&pi->list, &pgdat->deferred_list);
 	} else {
