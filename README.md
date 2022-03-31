@@ -97,3 +97,17 @@ make modules_install install
   * `thp_mt_copy`
     * THP copy using multi-thread
 
+## Publication
+```
+@inproceedings {273808,
+  author = {Jonghyeon Kim and Wonkyo Choe and Jeongseob Ahn},
+  title = {Exploring the Design Space of Page Management for {Multi-Tiered} Memory Systems},
+  booktitle = {2021 USENIX Annual Technical Conference (USENIX ATC 21)},
+  year = {2021},
+  isbn = {978-1-939133-23-6},
+  pages = {715--728},
+  url = {https://www.usenix.org/conference/atc21/presentation/kim-jonghyeon},
+  publisher = {USENIX Association},
+  month = jul,
+}
+```
